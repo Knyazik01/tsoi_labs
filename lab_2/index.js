@@ -20,6 +20,7 @@ const lab2 = async () => {
     // monochrome
     const imageToFilter = imagesToSave.init.clone();
     greyscaleImageMutate(imageToFilter);
+    imagesToSave.toFilter = imageToFilter;
 
     const laplasImage = imageToFilter.clone();
     // TODO check method
