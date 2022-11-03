@@ -121,6 +121,18 @@ const calcMatrixDeterminant = (matrix) => {
 /**
  *
  * @param {[number[]]} matrix
+ * @return {number} sum
+ */
+const getMatrixSum = (matrix) => {
+    return matrix.reduce((sum, row) => {
+        const rowSum = row.reduce((sumForRow, element) => sumForRow + element, 0);
+        return sum + rowSum;
+    }, 0);
+}
+
+/**
+ *
+ * @param {[number[]]} matrix
  * @param {number} rowIndex starts from 0
  * @param {number} columnIndex starts from 0
  * @param {number} size selected matrix area size. Should be odd
@@ -155,4 +167,5 @@ export {
     determinantMoreThanTwoSizeMatrix,
     calcMatrixDeterminant,
     getItemsAround,
+    getMatrixSum,
 }

@@ -11,4 +11,5 @@ export {
     determinantMoreThanTwoSizeMatrix,
     calcMatrixDeterminant,
     getItemsAround,
+    getMatrixSum,
 } from './matrix.js';

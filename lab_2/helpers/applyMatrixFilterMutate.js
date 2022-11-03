@@ -1,11 +1,12 @@
-import {calcMatrixDeterminant, getItemsAround, getPixels, multCoefficients} from "./index.js";
+import { getItemsAround, getMatrixSum, getPixels, multCoefficients } from "./index.js";
 import Jimp from "jimp";
 
 /** This function return matrix of image's pixels in hex format
  * @param image - Jimp image
  * @param {[number[]]} filter - image filter to set by pixel area
  * */
-const applyMatrixFilterMutate = ({image, filter}) => {
+const applyMatrixFilterMutate = ({image, filter, formatResult }) => {
+    const format = formatResult ? formatResult : (v) => v;
     const pixels = getPixels(image);
     const size = filter.length;
 
@@ -37,14 +38,10 @@ const applyMatrixFilterMutate = ({image, filter}) => {
 
                 const newColorRGBArray = areasPerColor
                     .map((colorArea) => {
-                        // TODO maybe mult matrix, not coefficients
                         const areaWithCoefficients = multCoefficients({matrix: colorArea, coefficients: filter});
-                        const newValue = calcMatrixDeterminant(areaWithCoefficients) ?? 0;
-                        if (newValue < 0) return 0;
-                        debugger;
-                        if (newValue > 255) return 255;
-                        debugger;
-                        return newValue;
+                        // const newValue = calcMatrixDeterminant(areaWithCoefficients) ?? 0;
+                        const newValue = getMatrixSum(areaWithCoefficients) ?? 0;
+                        return format(newValue);
                     });
 
                 const rgbaArray = [...newColorRGBArray, alfaChanel];
